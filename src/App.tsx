@@ -1,22 +1,21 @@
-import React from 'react';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { UsersPage } from './pages/UsersPage';
-import { CardPage } from './pages/CardPage';
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { UsersPage } from './pages/UsersPage'
+import { Navbar } from './components/Navbar'
+import { UserDetailPage } from './pages/UserDetailPage'
 
 function App() {
   return (
     <div>
-      Hello world!
       <BrowserRouter>
-        <NavLink to="/card">TO CARD</NavLink>
-        <NavLink to="/users">TO USERS</NavLink>
+        <Navbar />
         <Routes>
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/card" element={<CardPage />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="users/:id" element={<UserDetailPage />} />
         </Routes>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

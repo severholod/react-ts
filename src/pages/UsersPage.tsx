@@ -1,25 +1,23 @@
-import React, { FC, useEffect, useState } from 'react';
-import { IUser } from '../types/user';
-import axios from 'axios';
-import { List } from '../components/List';
-import { UserItem } from '../components/Users/UserItem';
+import React, { FC, useEffect } from 'react'
+import { IUser } from '../types/user'
+import { List } from '../components/List'
+import { UserItem } from '../components/Users/UserItem'
+import { useTypedSelector } from '../hooks/useTypedSelector'
+import { useActions } from '../hooks/useActions'
 
 export const UsersPage: FC = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
-      setUsers(res.data);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const { users, error, loading } = useTypedSelector((state) => state.user)
+  const { fetchUsers } = useActions()
+
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    !users.length && fetchUsers()
+  }, [users])
+
   return (
     <div>
+      {loading && <h1>Загрузка...</h1>}
       <List items={users} renderItem={(user: IUser) => <UserItem {...user} key={user.id} />} />
+      {error && <h1>{error}</h1>}
     </div>
-  );
-};
+  )
+}
