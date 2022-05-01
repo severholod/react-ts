@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IUser } from '../../types/types';
+import { IUser } from '../../types/user';
 
 export const UserItem: FC<IUser> = ({ name, address, id, email }) => {
   return (
